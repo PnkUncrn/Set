@@ -1,46 +1,7 @@
 from enum import Enum
 import random
-
-SAME = 'same'
-DIFFERENT = 'different'
-COLOR = 'color'
-SHAPE = 'shape'
-SHADING = 'shading'
-NUMBER = 'number'
-GREEN = 'green'
-PURPLE = 'purple'
-RED = 'red'
-OVAL = 'oval'
-DIAMOND = 'diamond'
-SQUIGGLE = 'squiggle'
-STRIPED = 'striped'
-SOLID = 'solid'
-OPEN = 'open'
-
-
-# change to pydanticc
-class Color(str, Enum):
-    green = GREEN
-    purple = PURPLE
-    red = RED
-
-
-class Shape(str, Enum):
-    oval = OVAL
-    diamond = DIAMOND
-    squiggle = SQUIGGLE
-
-
-class Shading(str, Enum):
-    striped = STRIPED
-    solid = SOLID
-    open = OPEN
-
-
-class Number(Enum):
-    one = 1
-    two = 2
-    three = 3
+import utils.constants as constants
+from utils.models import Color, Shape, Shading, Number
 
 
 class Card:
@@ -78,25 +39,25 @@ def is_it_set(card1, card2, card3):
 def create_third_card(card1, card2):
     created_card = Card()
     meta_attr = get_meta_attr(card1, card2)
-    if meta_attr[COLOR] is SAME:
+    if meta_attr[constants.COLOR] is constants.SAME:
         created_card.color = card1.color
     else:
         card_color_list = [card1.color, card2.color]
         leftover_color = [c for c in Color if c not in card_color_list]
         created_card.color = leftover_color[0]
-    if meta_attr[SHAPE] is SAME:
+    if meta_attr[constants.SHAPE] is constants.SAME:
         created_card.shape = card1.shape
     else:
         card_shape_list = [card1.shape, card2.shape]
         leftover_shape = [s for s in Shape if s not in card_shape_list]
         created_card.shape = leftover_shape[0]
-    if meta_attr[NUMBER] is SAME:
+    if meta_attr[constants.NUMBER] is constants.SAME:
         created_card.number = card1.number
     else:
         card_number_list = [card1.number, card2.number]
         leftover_number = [n for n in Number if n not in card_number_list]
         created_card.number = leftover_number[0]
-    if meta_attr[SHADING] is SAME:
+    if meta_attr[constants.SHADING] is constants.SAME:
         created_card.shading = card1.shading
     else:
         card_shading_list = [card1.shading, card2.shading]
@@ -107,10 +68,10 @@ def create_third_card(card1, card2):
 
 # given 2 card, greb their meta attributes
 def get_meta_attr(card1: Card, card2: Card):
-    meta_attr = {COLOR: compare_attributes(card1.color, card2.color),
-                 SHAPE: compare_attributes(card1.shape, card2.shape),
-                 SHADING: compare_attributes(card1.shading, card2.shading),
-                 NUMBER: compare_attributes(card1.number, card2.number)}
+    meta_attr = {constants.COLOR: compare_attributes(card1.color, card2.color),
+                 constants.SHAPE: compare_attributes(card1.shape, card2.shape),
+                 constants.SHADING: compare_attributes(card1.shading, card2.shading),
+                 constants.NUMBER: compare_attributes(card1.number, card2.number)}
 
     return meta_attr
 
@@ -118,9 +79,9 @@ def get_meta_attr(card1: Card, card2: Card):
 # given 2 attributes return if they are the same of different
 def compare_attributes(attribute1, attribute2):
     if attribute1 == attribute2:
-        return SAME
+        return constants.SAME
     else:
-        return DIFFERENT
+        return constants.DIFFERENT
 
 
 # given a list of cards, find list of sets.
@@ -152,12 +113,12 @@ class Table:
         self.number_of_cards = number_of_cards
         self.cards = get_cards(self.number_of_cards)
 
-    #list of cards given, return a list of sets
-    #sets must be unique = set of tuples?
+    # list of cards given, return a list of sets
+    # sets must be unique = set of tuples?
     def get_sets(self):
         card_list = list(self.cards)
-        #user iter tools to generate combinations
-
+        # user iter tools to generate combinations
+        return
 
 
 # card1 = Card(color=Color.red, shape=Shape.oval, shading=Shading.striped, number=Number.one, position=None)
@@ -186,7 +147,7 @@ card1 = Card(color=Color.red, shape=Shape.oval, shading=Shading.striped, number=
 card2 = Card(color=Color.green, shape=Shape.oval, shading=Shading.striped, number=Number.one, position=None)
 card3 = Card(color=Color.purple, shape=Shape.oval, shading=Shading.striped, number=Number.one, position=None)
 
-cards = get_cards(500)
+cards = get_cards(50)
 print(cards)
 num = 1
 # print("Length of cards", len(cards))
