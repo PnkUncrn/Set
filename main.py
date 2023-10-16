@@ -39,8 +39,9 @@ import utils
 # card = get_random_card()
 # print(card)
 
-
-table = Table(10)
+card2 = Card(color=Color.green, shape=Shape.oval, shading=Shading.striped, number=Number.one, position=None)
+card3 = Card(color=Color.purple, shape=Shape.oval, shading=Shading.striped, number=Number.one, position=None)
+table = Table(3, [card2, card3])
 print(table)
 a = table.get_sets()
 for ind, val in enumerate(a):
